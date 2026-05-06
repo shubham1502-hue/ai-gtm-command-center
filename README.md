@@ -53,6 +53,13 @@ If I were working with an AI startup founder, this is the kind of workflow I wou
 
 ## Example Output
 
+Demo files are committed in [docs/demo_output](docs/demo_output):
+
+- [GTM brief](docs/demo_output/gtm_brief.md)
+- [HTML GTM report](docs/demo_output/gtm_report.html)
+- [Founder approval draft queue](docs/demo_output/draft_queue.csv)
+- [Structured recommendations JSON](docs/demo_output/recommendations.json)
+
 ```text
 ContextLayer AI - 96/100 (High)
 
