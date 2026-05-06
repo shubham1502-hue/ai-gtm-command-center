@@ -1,5 +1,21 @@
 # AI GTM Command Center
 
+## Problem This Solves
+
+Early-stage founders often run GTM from scattered CSVs, browser tabs, notes, and half-written follow-ups. The problem is not just writing outreach. It is turning messy account context into a repeatable founder-approved sales workflow.
+
+## How It Helps
+
+- Turns a target-account CSV into scored account briefs, pain hypotheses, talk tracks, email drafts, follow-ups, and reviewable outputs.
+- Keeps the workflow human-approved so founders get leverage without turning their brand into a spam machine.
+- Runs offline with a mock provider for demos, then upgrades to Gemini, Groq, and optional Google Sheets sync.
+
+## When To Fork This
+
+- Fork this if you are a founder, founder's office hire, RevOps operator, or GTM analyst building a first outbound operating system.
+- Fork it when your account research, ICP scoring, and follow-up discipline are living in too many places.
+- Customize the persona, target CSV columns, scoring rubric, prompt, and Google Sheet output around your own ICP.
+
 I built this because most early-stage AI founders do not have their GTM work in one clean place.
 
 The account list is in a CSV. Research is in browser tabs. Follow-ups are in someone's head. ICP judgment is partly intuition. Email drafts are written from scratch every time. By the time the founder sits down to sell, the actual operating system is still missing.
