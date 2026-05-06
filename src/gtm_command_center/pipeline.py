@@ -52,12 +52,23 @@ def normalize_recommendation(research: AccountResearch, raw: dict) -> GTMRecomme
     return GTMRecommendation(
         company=account.company,
         website=account.website,
+        target_person=account.target_person,
+        target_role=account.target_role,
+        linkedin_url=account.linkedin_url,
+        industry=account.industry,
+        funding_stage=account.funding_stage,
         fit_score=score,
         priority=priority,
         score_rationale=str(raw.get("score_rationale") or "No rationale returned.").strip(),
+        industry_context=str(raw.get("industry_context") or "").strip(),
+        approach_strategy=str(raw.get("approach_strategy") or "").strip(),
         pain_hypotheses=as_list("pain_hypotheses"),
         personalization_points=as_list("personalization_points"),
+        manual_research_checklist=as_list("manual_research_checklist"),
         suggested_offer_angle=str(raw.get("suggested_offer_angle") or "").strip(),
+        linkedin_connection_note=str(raw.get("linkedin_connection_note") or "").strip()[:200],
+        linkedin_dm_body=str(raw.get("linkedin_dm_body") or "").strip(),
+        linkedin_follow_up_body=str(raw.get("linkedin_follow_up_body") or "").strip(),
         cold_email_subject=str(raw.get("cold_email_subject") or f"{account.company} GTM idea").strip(),
         cold_email_body=str(raw.get("cold_email_body") or "").strip(),
         follow_up_subject=str(raw.get("follow_up_subject") or "Quick follow-up").strip(),
@@ -89,4 +100,3 @@ def recommend_accounts(
 
 def write_json(path: Path, data: object) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
-

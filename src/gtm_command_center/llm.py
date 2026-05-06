@@ -41,7 +41,17 @@ class MockProvider(LLMProvider):
 
     def synthesize(self, research: AccountResearch, sender_persona: str) -> dict[str, Any]:
         account = research.account
-        evidence = " ".join([account.segment, account.notes, research.website_summary]).lower()
+        evidence = " ".join(
+            [
+                account.segment,
+                account.industry,
+                account.funding_stage,
+                account.notes,
+                account.linkedin_notes,
+                account.industry_notes,
+                research.website_summary,
+            ]
+        ).lower()
         score = 50
         if any(term in evidence for term in ["seed", "series a", "founder-led", "b2b", "saas"]):
             score += 18
@@ -56,22 +66,45 @@ class MockProvider(LLMProvider):
         role = account.target_role or "founder"
         person = account.target_person or role
         company = account.company
-        segment = account.segment or "growth-stage"
+        segment = account.segment or account.industry or "growth-stage"
+        industry = account.industry or segment
+        funding_stage = account.funding_stage or "early-stage"
 
         pain_hypotheses = [
             f"{company} likely has account research and founder-led follow-up scattered across manual tools.",
-            f"Given the {segment} context, the team probably needs cleaner prioritization before adding more GTM headcount.",
+            f"Given the {industry} context, the team probably needs cleaner prioritization before adding more GTM headcount.",
             "A weekly operating view could expose which accounts, conversations, and follow-ups deserve founder attention.",
         ]
         if account.notes:
             pain_hypotheses.append(f"Operator note to validate: {clean_text(account.notes, 130)}")
+        if account.linkedin_notes:
+            pain_hypotheses.append(f"LinkedIn note to validate manually: {clean_text(account.linkedin_notes, 120)}")
 
         personalization = [
             f"Reference {company}'s {segment} context.",
             "Lead with a practical workflow, not a generic AI pitch.",
         ]
+        if account.target_person:
+            personalization.append(f"Address {account.target_person} by name and connect the note to their founder/operator context.")
         if research.public_sources:
             personalization.append(f"Use the public website as the primary source: {research.public_sources[0].url}")
+
+        connection_note = clean_text(
+            f"Hi {person}, I liked how {company} is building in {industry}. "
+            "I build founder-ops tools and made a forkable weekly review/GTM workflow. Open to connect?",
+            200,
+        )
+        linkedin_dm = (
+            f"Hi {person}, thanks for connecting.\n\n"
+            f"I was looking at {company} and had a practical founder-ops thought: early {industry} teams often have "
+            "GTM notes, follow-ups, weekly metrics, and investor updates spread across too many places.\n\n"
+            "I built a forkable Founder OS toolkit for that: weekly operating reviews, board updates, GTM research, and RevOps templates. "
+            "If useful, I can send the repo most relevant to your current workflow."
+        )
+        linkedin_follow_up = (
+            f"Quick follow-up, {person}. The useful part is not another tool; it is a reusable operating loop founders can fork "
+            "and adapt. Happy to share the most relevant repo if this is a current pain."
+        )
 
         subject = f"{company} GTM workflow idea"
         body = (
@@ -100,12 +133,30 @@ class MockProvider(LLMProvider):
                 f"{company} looks like a {priority_from_score(score).lower()}-priority account because the available "
                 "signals suggest founder-led GTM work where lightweight AI operations can save time."
             ),
+            "industry_context": (
+                f"{company} is treated as a {funding_stage} {industry} target. The outreach should connect your "
+                "Founder OS toolkit to a concrete operating problem, not to a generic hiring pitch."
+            ),
+            "approach_strategy": (
+                "Open the LinkedIn profile manually, confirm the founder's current focus from recent posts and company context, "
+                "then send a short connection note. After they accept, lead with a useful repo and ask for feedback instead of a job."
+            ),
             "pain_hypotheses": pain_hypotheses[:5],
             "personalization_points": personalization[:4],
+            "manual_research_checklist": [
+                "Check the founder's latest 3-5 LinkedIn posts for current priorities, hiring, funding, or GTM language.",
+                "Check the company page and website for ICP, product category, pricing, and customer proof.",
+                "Look for recent funding, launch, hiring, or expansion signals from public sources.",
+                "Choose one repo that maps to the strongest operating pain before writing the DM.",
+                "Do not mention a personal detail unless it is clearly public and relevant to the business problem.",
+            ],
             "suggested_offer_angle": (
                 "Open-source AI GTM workflow plus a small Founder's Office pilot: source-backed account research, "
                 "fit scoring, and approved outreach drafts."
             ),
+            "linkedin_connection_note": connection_note,
+            "linkedin_dm_body": linkedin_dm,
+            "linkedin_follow_up_body": linkedin_follow_up,
             "cold_email_subject": subject,
             "cold_email_body": body,
             "follow_up_subject": f"Re: {subject}",

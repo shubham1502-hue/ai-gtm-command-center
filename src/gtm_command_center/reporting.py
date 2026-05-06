@@ -12,16 +12,27 @@ from .utils import ensure_dir
 DRAFT_QUEUE_FIELDNAMES = [
     "company",
     "website",
+    "target_person",
+    "target_role",
+    "linkedin_url",
+    "industry",
+    "funding_stage",
     "fit_score",
     "priority",
     "score_rationale",
+    "industry_context",
+    "approach_strategy",
     "suggested_offer_angle",
+    "linkedin_connection_note",
+    "linkedin_dm_body",
+    "linkedin_follow_up_body",
     "cold_email_subject",
     "cold_email_body",
     "follow_up_subject",
     "follow_up_body",
     "pain_hypotheses",
     "personalization_points",
+    "manual_research_checklist",
     "likely_objections",
     "talk_track",
     "sources",
@@ -32,6 +43,8 @@ DRAFT_QUEUE_FIELDNAMES = [
 def write_outputs(recommendations: list[GTMRecommendation], out_dir: Path) -> None:
     ensure_dir(out_dir)
     write_draft_queue(recommendations, out_dir / "draft_queue.csv")
+    write_linkedin_dm_queue(recommendations, out_dir / "linkedin_dm_queue.csv")
+    write_tracker_import(recommendations, out_dir / "founder_outreach_tracker_import.csv")
     write_brief(recommendations, out_dir / "gtm_brief.md")
     write_html_report(recommendations, out_dir / "gtm_report.html")
     write_json(out_dir / "recommendations.json", [item.as_flat_row() for item in recommendations])
@@ -43,6 +56,76 @@ def write_draft_queue(recommendations: list[GTMRecommendation], path: Path) -> N
         writer.writeheader()
         for recommendation in recommendations:
             writer.writerow(recommendation.as_flat_row())
+
+
+def write_linkedin_dm_queue(recommendations: list[GTMRecommendation], path: Path) -> None:
+    fieldnames = [
+        "priority",
+        "fit_score",
+        "target_person",
+        "target_role",
+        "company",
+        "industry",
+        "funding_stage",
+        "linkedin_url",
+        "website",
+        "approach_strategy",
+        "linkedin_connection_note",
+        "linkedin_dm_body",
+        "linkedin_follow_up_body",
+        "manual_research_checklist",
+        "suggested_offer_angle",
+        "sources",
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for item in recommendations:
+            row = item.as_flat_row()
+            writer.writerow({field: row.get(field, "") for field in fieldnames})
+
+
+def write_tracker_import(recommendations: list[GTMRecommendation], path: Path) -> None:
+    fieldnames = [
+        "No.",
+        "Contact Name",
+        "Company",
+        "Role / Title",
+        "LinkedIn URL",
+        "Message Type",
+        "Stage",
+        "Fit Score (1-5)",
+        "Date Added",
+        "Message Sent Date",
+        "Last Activity Date",
+        "Follow-up Due",
+        "Source",
+        "Notes",
+        "Next Action",
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for index, item in enumerate(recommendations, start=1):
+            writer.writerow(
+                {
+                    "No.": index,
+                    "Contact Name": item.target_person,
+                    "Company": item.company,
+                    "Role / Title": item.target_role,
+                    "LinkedIn URL": item.linkedin_url,
+                    "Message Type": "Manual LinkedIn DM",
+                    "Stage": "Research Complete",
+                    "Fit Score (1-5)": max(1, min(5, round(item.fit_score / 20))),
+                    "Date Added": "",
+                    "Message Sent Date": "",
+                    "Last Activity Date": "",
+                    "Follow-up Due": "",
+                    "Source": "AI GTM Command Center",
+                    "Notes": item.score_rationale,
+                    "Next Action": "Open LinkedIn manually, validate checklist, send or edit the drafted note.",
+                }
+            )
 
 
 def write_brief(recommendations: list[GTMRecommendation], path: Path) -> None:
@@ -61,7 +144,26 @@ def write_brief(recommendations: list[GTMRecommendation], path: Path) -> None:
                 "",
                 f"**Why this account:** {item.score_rationale}",
                 "",
+                f"**Industry context:** {item.industry_context}",
+                "",
+                f"**Manual approach strategy:** {item.approach_strategy}",
+                "",
                 f"**Offer angle:** {item.suggested_offer_angle}",
+                "",
+                "**Manual LinkedIn research checklist:**",
+                *[f"- {value}" for value in item.manual_research_checklist],
+                "",
+                "**LinkedIn connection note:**",
+                "",
+                item.linkedin_connection_note,
+                "",
+                "**LinkedIn DM draft:**",
+                "",
+                item.linkedin_dm_body,
+                "",
+                "**LinkedIn follow-up draft:**",
+                "",
+                item.linkedin_follow_up_body,
                 "",
                 "**Pain hypotheses:**",
                 *[f"- {value}" for value in item.pain_hypotheses],
@@ -108,6 +210,8 @@ def write_html_report(recommendations: list[GTMRecommendation], path: Path) -> N
             if source.get("url")
         )
         email_body = html.escape(item.cold_email_body)
+        linkedin_body = html.escape(item.linkedin_dm_body)
+        checklist = "".join(f"<li>{html.escape(value)}</li>" for value in item.manual_research_checklist)
         cards.append(
             f"""
             <article class="account">
@@ -132,9 +236,18 @@ def write_html_report(recommendations: list[GTMRecommendation], path: Path) -> N
                   <ul>{points}</ul>
                 </section>
               </div>
+                <section>
+                  <h3>Offer Angle</h3>
+                  <p>{html.escape(item.suggested_offer_angle)}</p>
+                </section>
               <section>
-                <h3>Offer Angle</h3>
-                <p>{html.escape(item.suggested_offer_angle)}</p>
+                <h3>Manual LinkedIn Checklist</h3>
+                <ul>{checklist}</ul>
+              </section>
+              <section class="email">
+                <h3>Manual LinkedIn DM</h3>
+                <strong>Connection note: {html.escape(item.linkedin_connection_note)}</strong>
+                <pre>{linkedin_body}</pre>
               </section>
               <section class="email">
                 <h3>Draft Email</h3>

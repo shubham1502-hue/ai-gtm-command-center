@@ -29,7 +29,13 @@ class PipelineTests(unittest.TestCase):
                 company="Acme",
                 website="https://example.com",
                 segment="B2B SaaS",
+                industry="Revenue Operations",
+                funding_stage="Seed",
+                target_person="Asha Rao",
+                target_role="Founder",
+                linkedin_url="https://linkedin.com/in/example",
                 notes="Seed founder-led revenue pipeline with manual follow-up.",
+                linkedin_notes="Recent post about pipeline hygiene.",
             )
         ]
         recommendations = recommend_accounts(
@@ -41,6 +47,9 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(len(recommendations), 1)
         self.assertGreaterEqual(recommendations[0].fit_score, 75)
         self.assertIn("draft queue", recommendations[0].cold_email_body.lower())
+        self.assertIn("Open the LinkedIn profile manually", recommendations[0].approach_strategy)
+        self.assertLessEqual(len(recommendations[0].linkedin_connection_note), 200)
+        self.assertIn("thanks for connecting", recommendations[0].linkedin_dm_body.lower())
 
 
 if __name__ == "__main__":

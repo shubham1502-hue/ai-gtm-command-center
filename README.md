@@ -161,6 +161,20 @@ Then open:
 - `outputs/demo/gtm_report.html`
 - `outputs/demo/gtm_brief.md`
 - `outputs/demo/draft_queue.csv`
+- `outputs/demo/linkedin_dm_queue.csv`
+- `outputs/demo/founder_outreach_tracker_import.csv`
+
+## Manual LinkedIn Founder DM Workflow
+
+This repo now supports a LinkedIn-safe founder research workflow:
+
+1. Manually collect founder and company context into `examples/target_accounts.csv`.
+2. Run the command center to score accounts and draft outreach.
+3. Open `linkedin_dm_queue.csv` to review connection notes, first DMs, follow-ups, and the manual research checklist.
+4. Manually open LinkedIn, validate the founder's current context, edit the draft, and send yourself.
+5. Import `founder_outreach_tracker_import.csv` into [founder-outreach-tracker](https://github.com/shubham1502-hue/founder-outreach-tracker) after sending so follow-ups do not slip.
+
+Full workflow: [docs/founder_linkedin_dm_workflow.md](docs/founder_linkedin_dm_workflow.md)
 
 ## Using Gemini
 
@@ -227,8 +241,8 @@ Acme,https://example.com
 Recommended CSV:
 
 ```csv
-company,website,segment,target_person,target_role,email,notes
-Acme,https://example.com,B2B SaaS,Asha Rao,Founder,asha@example.com,"Seed-stage founder-led sales motion."
+company,website,segment,industry,funding_stage,target_person,target_role,linkedin_url,email,notes,linkedin_notes,industry_notes
+Acme,https://example.com,B2B SaaS,Revenue Operations,Seed,Asha Rao,Founder,https://linkedin.com/in/example,asha@example.com,"Seed-stage founder-led sales motion.","Recent post about pipeline hygiene.","B2B SaaS founders care about pipeline quality and activation."
 ```
 
 ## Safety Choices
@@ -236,6 +250,7 @@ Acme,https://example.com,B2B SaaS,Asha Rao,Founder,asha@example.com,"Seed-stage 
 I made a few opinionated choices on purpose:
 
 - No LinkedIn scraping.
+- No LinkedIn auto-DMs or connection automation.
 - No automatic email sending.
 - Drafts require human approval.
 - Sources and warnings stay visible.
