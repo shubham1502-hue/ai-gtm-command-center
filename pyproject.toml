@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-gtm-command-center"
+version = "0.1.0"
+description = "AI-native GTM research, ICP scoring, and human-approved outreach draft queue for founders."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Shubham Singh" }]
+license = { text = "MIT" }
+keywords = ["gtm", "founders-office", "ai-startups", "ai-agents", "sales", "gemini", "groq"]
+dependencies = []
+
+[project.optional-dependencies]
+gemini = ["google-genai>=1.0.0"]
+sheets = ["gspread>=6.0.0", "google-auth>=2.0.0"]
+dev = ["pytest>=8.0.0"]
+
+[project.scripts]
+gtm-command-center = "gtm_command_center.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
