@@ -20,6 +20,7 @@ dev = ["pytest>=8.0.0"]
 
 [project.scripts]
 gtm-command-center = "gtm_command_center.cli:main"
+fundraising-scout = "gtm_command_center.fundraising_scout:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -176,6 +176,24 @@ This repo now supports a LinkedIn-safe founder research workflow:
 
 Full workflow: [docs/founder_linkedin_dm_workflow.md](docs/founder_linkedin_dm_workflow.md)
 
+## Recent Fundraising Scout
+
+You can also find public fundraising signals and convert them into outreach research rows:
+
+```bash
+python -m gtm_command_center.fundraising_scout \
+  --days 45 \
+  --out outputs/fundraising-scout
+```
+
+This writes:
+
+- `fundraising_leads.csv`
+- `target_accounts_from_fundraising.csv`
+- `founder_outreach_tracker_import.csv`
+
+Full workflow: [docs/recent_fundraising_outreach_workflow.md](docs/recent_fundraising_outreach_workflow.md)
+
 ## Using Gemini
 
 Gemini is the easiest free-tier-first option for this project.
