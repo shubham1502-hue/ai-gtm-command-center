@@ -32,12 +32,16 @@ This repo is designed to be forked into an internal company workflow. Fork it, r
 
 ## Minimum Edits To Make It Yours
 
-- examples/target_accounts.csv
-- examples/persona.md
-- scoring/prompt assumptions if your ICP is different
-- Google Sheet ID if syncing
+Change these first:
 
-The fastest path is: fork the repo, replace the inputs above, run the demo or open the template, then adjust only the parts that reflect your company's workflow.
+| Edit | Where | Why |
+|---|---|---|
+| Replace the target account list. | `examples/target_accounts.csv` | This is the core input; every account score, brief, and outreach draft depends on it. |
+| Rewrite the sender/company context. | `examples/persona.md` | Makes the output sound like your founder, product, market, and offer. |
+| Tune the ICP and scoring assumptions. | `src/gtm_command_center/prompts.py` | Changes what the system considers a high-fit account. |
+| Add your tracker destination only if needed. | `.env` / Google Sheets setup | Keeps the first run simple if you only want local CSV outputs. |
+
+You can leave the report templates, mock provider, provider integrations, and LinkedIn-safety guardrails alone on the first fork. Start with offline output, review the drafts manually, then connect Sheets or an LLM provider.
 
 ## What This Does
 
