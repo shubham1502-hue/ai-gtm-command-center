@@ -78,7 +78,7 @@ def source_from_title(title: str) -> tuple[str, str]:
 
 
 def extract_company(headline: str) -> str:
-    cleaned = re.sub(r"^[\"'“”]+|[\"'“”]+$", "", headline.strip())
+    cleaned = re.sub(r"^[\"'\u201c\u201d]+|[\"'\u201c\u201d]+$", "", headline.strip())
     cleaned = re.sub(r"^(?:exclusive|analysis|funding alert)\s*:\s*", "", cleaned, flags=re.IGNORECASE)
     startup_match = re.search(
         r"(?:AI|deep-tech|fintech|SaaS|grocery|climate|healthtech|edtech)?\s*startup\s+([A-Z][A-Za-z0-9&.'-]+)\s+"
@@ -96,7 +96,7 @@ def extract_company(headline: str) -> str:
     if founder_match:
         return clean_text(founder_match.group(1).strip(" -:|"), 80)
     possessive_match = re.search(
-        r"^[A-Z][A-Za-z .'-]+['’]s\s+([A-Z][A-Za-z0-9&.'-]+)\s+"
+        r"^[A-Z][A-Za-z .'-]+['\u2019]s\s+([A-Z][A-Za-z0-9&.'-]+)\s+"
         r"(?:raises|raised|secures|secured|bags|bagged|lands|landed|closes|closed|gets|got)\b",
         cleaned,
         flags=re.IGNORECASE,

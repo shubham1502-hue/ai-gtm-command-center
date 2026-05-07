@@ -1,5 +1,156 @@
 # AI GTM Command Center
 
+Pre-call GTM command center for founder-led account research, ICP scoring, outreach drafts, and call prep.
+
+<!-- FOUNDER_OS_STANDARD_README -->
+
+## The founder problem
+
+Founders often run outbound from browser tabs, CRM notes, LinkedIn profiles, and half-written drafts. They do not need more activity. They need a repeatable workflow that turns account context into clear research, call prep, and human-approved outreach.
+
+## What this repo does
+
+- scores target accounts against ICP signals
+- generates account briefs and pain hypotheses
+- creates reviewable email and LinkedIn draft queues
+- exports tracker-ready CSVs
+- keeps optional AI providers separate from the deterministic demo path
+
+## What a founder gets in 10 minutes
+
+- ranked account list
+- GTM brief
+- draft outreach queue
+- LinkedIn DM queue
+- founder outreach tracker import
+- HTML report and JSON recommendations
+
+## Before and after
+
+Before:
+
+- target accounts spread across sheets and tabs
+- unclear ICP fit
+- outreach drafts written from scratch
+- call prep dependent on founder memory
+
+After:
+
+- scored account workflow
+- founder-ready briefs
+- human-approved draft queue
+- tracker-ready follow-up artifacts
+
+## Who this is for
+
+- early-stage founders
+- GTM operators
+- Founder's Office teams
+- RevOps operators
+- startup generalists
+- AI-native startup teams
+
+## Quick start
+
+- Run `python -m pip install -e .`.
+- Run `python -m gtm_command_center run --targets examples/target_accounts.csv --persona examples/persona.md --out docs/demo_output --offline`.
+- Open `docs/demo_output/gtm_brief.md` first.
+- Review `docs/demo_output/draft_queue.csv` before sending anything.
+
+## How to fork and use this for your company
+
+1. Click Fork.
+2. Rename the repo if needed.
+3. Replace `examples/target_accounts.csv` with your own accounts.
+4. Keep optional API keys in `.env`, never in committed files.
+5. Run the demo path first before connecting Gemini, Groq, or Google Sheets.
+6. Move approved outputs into HubSpot, Pipedrive, Attio, Airtable, Google Sheets, or your outreach tracker.
+
+### Non-technical path
+
+- Replace one file: `examples/target_accounts.csv`.
+- Run one command from the Quick start section.
+- Read one memo first: `docs/demo_output/gtm_brief.md`.
+- Send nothing until a human reviews the drafts.
+
+## Input format
+
+- target account CSV with company, website, segment, use case, funding stage, contact fields, notes, and evidence
+- optional provider settings in `.env`
+- founder-approved ICP and messaging assumptions
+
+The default sample data and examples are synthetic, anonymized, or template-only unless the repo explicitly documents a public source. Keep private customer, prospect, employee, investor, borrower, merchant, payment, or company data out of public forks.
+
+## Output files
+
+- `docs/demo_output/gtm_brief.md`: founder call-prep brief
+- `docs/demo_output/draft_queue.csv`: outbound drafts for review
+- `docs/demo_output/linkedin_dm_queue.csv`: LinkedIn DM drafts
+- `docs/demo_output/founder_outreach_tracker_import.csv`: tracker import file
+- `docs/demo_output/gtm_report.html`: reviewable report
+- `docs/demo_output/recommendations.json`: structured recommendations
+
+## Example founder workflow
+
+- Monday: add target accounts.
+- Tuesday: run the command center.
+- Wednesday: review account briefs and draft queues.
+- Thursday: move approved actions into CRM or tracker.
+- Friday: compare replies and update ICP assumptions.
+
+## Customization guide
+
+Customize these before using the repo for a real company:
+
+- ICP scoring signals
+- target account fields
+- outreach tone
+- LLM provider choice
+- Google Sheets sync
+- CRM import columns
+
+## Where this fits in the Founder OS
+
+`ai-gtm-command-center` sits before `founder-led-sales-call-os`. Use it for pre-call research and outreach. Use `founder-led-sales-call-os` after calls. Connect both to `founder-outreach-tracker` and `founder-os-revenue-engine` for follow-up and revenue diagnosis.
+
+## Why this matters
+
+This is not an outreach spam generator. It is a founder-controlled GTM workflow for preparing better conversations and tracking the next action.
+
+## Roadmap
+
+- HubSpot, Pipedrive, and Attio sync
+- Google Sheets two-way updates
+- Notion account brief export
+- Slack review queue
+- weekly GTM review integration
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) if present. Practical improvements are welcome when they make the workflow easier to fork, run, or adapt.
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
+
+## Built by
+
+Built by Shubham Singh, a founder-facing operator focused on RevOps, GTM systems, startup metrics, AI workflows, and operating systems for early-stage teams.
+
+## Use this in your company
+
+Fork it, replace the sample inputs with your company context, and run the workflow. Start with the main output listed in the Quick Start section. Keep private data out of public forks.
+
+## If you are a Founder's Office candidate
+
+Use this repo to understand how a founder-facing operator turns messy inputs into decisions, cadence, and execution artifacts. Fork it, adapt it to a real company example, and write a short case note explaining what changed.
+
+---
+
+## Detailed implementation notes
+
+The founder-facing guide above is the fastest path. The original repo-specific notes are preserved below for deeper implementation context.
+
 ## Problem This Solves
 
 Early-stage founders often run GTM from scattered CSVs, browser tabs, notes, and half-written follow-ups. The problem is not just writing outreach. It is turning messy account context into a repeatable founder-approved sales workflow.
@@ -115,14 +266,14 @@ If useful, I can share the repo and also build a 10-account pilot around your IC
 
 ```mermaid
 flowchart LR
-    CSV["Target accounts CSV"] --> Research["Research collector"]
-    Research --> Sources["Homepage + Google News RSS + operator notes"]
-    Sources --> Prompt["GTM reasoning prompt"]
-    Persona["Sender positioning"] --> Prompt
-    Prompt --> LLM["Gemini / Groq / Mock provider"]
-    LLM --> Normalize["Structured recommendation"]
-    Normalize --> Outputs["CSV + Markdown + JSON + HTML"]
-    Normalize --> Sheets["Optional Google Sheets draft queue"]
+  CSV["Target accounts CSV"] --> Research["Research collector"]
+  Research --> Sources["Homepage + Google News RSS + operator notes"]
+  Sources --> Prompt["GTM reasoning prompt"]
+  Persona["Sender positioning"] --> Prompt
+  Prompt --> LLM["Gemini / Groq / Mock provider"]
+  LLM --> Normalize["Structured recommendation"]
+  Normalize --> Outputs["CSV + Markdown + JSON + HTML"]
+  Normalize --> Sheets["Optional Google Sheets draft queue"]
 ```
 
 The system is deliberately simple:
@@ -176,11 +327,11 @@ Run the demo:
 python -m pip install -e .
 
 python -m gtm_command_center run \
-  --targets examples/target_accounts.csv \
-  --persona examples/persona.md \
-  --provider mock \
-  --offline \
-  --out outputs/demo
+ --targets examples/target_accounts.csv \
+ --persona examples/persona.md \
+ --provider mock \
+ --offline \
+ --out outputs/demo
 ```
 
 Then open:
@@ -209,8 +360,8 @@ You can also find public fundraising signals and convert them into outreach rese
 
 ```bash
 python -m gtm_command_center.fundraising_scout \
-  --days 45 \
-  --out outputs/fundraising-scout
+ --days 45 \
+ --out outputs/fundraising-scout
 ```
 
 This writes:
@@ -231,10 +382,10 @@ cp .env.example .env
 # Add GEMINI_API_KEY to .env
 
 python -m gtm_command_center run \
-  --targets examples/target_accounts.csv \
-  --persona examples/persona.md \
-  --provider gemini \
-  --out outputs/gemini-run
+ --targets examples/target_accounts.csv \
+ --persona examples/persona.md \
+ --provider gemini \
+ --out outputs/gemini-run
 ```
 
 ## Using Groq
@@ -246,10 +397,10 @@ cp .env.example .env
 # Add GROQ_API_KEY to .env
 
 python -m gtm_command_center run \
-  --targets examples/target_accounts.csv \
-  --persona examples/persona.md \
-  --provider groq \
-  --out outputs/groq-run
+ --targets examples/target_accounts.csv \
+ --persona examples/persona.md \
+ --provider groq \
+ --out outputs/groq-run
 ```
 
 ## Optional Google Sheets Sync
@@ -265,11 +416,11 @@ cp .env.example .env
 # Share the Google Sheet with the service-account email.
 
 python -m gtm_command_center run \
-  --targets examples/target_accounts.csv \
-  --persona examples/persona.md \
-  --provider mock \
-  --offline \
-  --sync-sheets
+ --targets examples/target_accounts.csv \
+ --persona examples/persona.md \
+ --provider mock \
+ --offline \
+ --sync-sheets
 ```
 
 Setup notes: [docs/google_sheets_setup.md](docs/google_sheets_setup.md)
