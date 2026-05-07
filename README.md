@@ -24,6 +24,8 @@ This repo is how I would start fixing that.
 
 ## Use This In Your Company
 
+This repo is designed to be forked into an internal company workflow. Fork it, replace the sample inputs with your company context, and keep only the parts that match your operating cadence. No permission request or sales call is needed before using it; the repo is the handoff. Check the license if you plan to redistribute your version.
+
 - Use it as a founder-approved GTM research queue before any outreach is sent.
 - Keep the pipeline: target CSV -> research -> fit score -> founder call notes -> manual DM/email draft -> tracker import.
 - Replace only the target accounts, sender persona, and repo/offer angle for your company.
