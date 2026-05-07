@@ -291,11 +291,11 @@ I made a few opinionated choices on purpose:
 
 That matters because founder-facing automation should create leverage without creating reputational risk.
 
-## About Me
+## Author Note
 
-I am Shubham Singh, a Founder's Office candidate focused on AI-native operating systems for early-stage founders.
+Built by Shubham Singh, focused on AI-native operating systems for early-stage founders.
 
-I have built RevOps infrastructure from scratch at a founder-led startup and I am looking for Founder's Office roles at early-stage AI startups where GTM, operations, analytics, and execution sit close to the founder.
+I have built RevOps infrastructure from scratch at a founder-led startup, including CRM workflows, reporting, handoffs, automations, and weekly CEO visibility.
 
 - LinkedIn: <https://linkedin.com/in/shubham9616>
 - GitHub: <https://github.com/shubham1502-hue>
