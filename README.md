@@ -22,6 +22,21 @@ The account list is in a CSV. Research is in browser tabs. Follow-ups are in som
 
 This repo is how I would start fixing that.
 
+## Use This In Your Company
+
+- Use it as a founder-approved GTM research queue before any outreach is sent.
+- Keep the pipeline: target CSV -> research -> fit score -> founder call notes -> manual DM/email draft -> tracker import.
+- Replace only the target accounts, sender persona, and repo/offer angle for your company.
+
+## Minimum Edits To Make It Yours
+
+- examples/target_accounts.csv
+- examples/persona.md
+- scoring/prompt assumptions if your ICP is different
+- Google Sheet ID if syncing
+
+The fastest path is: fork the repo, replace the inputs above, run the demo or open the template, then adjust only the parts that reflect your company's workflow.
+
 ## What This Does
 
 AI GTM Command Center takes a CSV of target accounts and turns it into a founder-ready GTM workbench.
@@ -284,5 +299,3 @@ I have built RevOps infrastructure from scratch at a founder-led startup and I a
 
 - LinkedIn: <https://linkedin.com/in/shubham9616>
 - GitHub: <https://github.com/shubham1502-hue>
-
-If you are a founder reading this, the repo is open for you to use. If you want this adapted to your own ICP, funnel, CRM, or weekly GTM rhythm, that is exactly the kind of work I want to do.
