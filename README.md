@@ -62,6 +62,10 @@ For each company, it creates:
 
 It is intentionally draft-only. I do not want this to be a spam bot. I want it to be the system before the send button: research, judgment, prioritization, and clean follow-up discipline.
 
+## After the sales call
+
+Use AI GTM Command Center before calls to research accounts, prepare outreach, and build founder-call briefs. After calls, use [Founder-Led Sales Call OS](https://github.com/shubham1502-hue/founder-led-sales-call-os) to extract objections, deal risks, follow-up priorities, and narrative experiments from actual sales conversations.
+
 ## Why I Built This
 
 I approached this as a Founder's Office candidate, not as someone trying to ship another generic AI wrapper.
