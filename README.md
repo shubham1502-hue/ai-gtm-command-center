@@ -109,6 +109,40 @@ Customize these before using the repo for a real company:
 - Google Sheets sync
 - CRM import columns
 
+## Standalone or integrated
+
+Standalone:
+Use this repo by itself if you only need pre-call GTM research, account prioritization, outreach drafts, or call prep. Fork it, replace the sample input, run the workflow or copy the templates, and use the main output in your next founder review.
+
+Integrated:
+Use this repo with the Founder OS ecosystem if you want to connect it to adjacent operating workflows.
+
+- Use before founder-led sales calls.
+- Send actual sales call notes into [founder-led-sales-call-os](https://github.com/shubham1502-hue/founder-led-sales-call-os).
+- Track follow-ups in [founder-outreach-tracker](https://github.com/shubham1502-hue/founder-outreach-tracker).
+- Feed GTM learnings into [founder-os-revenue-engine](https://github.com/shubham1502-hue/founder-os-revenue-engine).
+
+## Lifecycle handoff
+
+Before:
+
+- [founder-os](https://github.com/shubham1502-hue/founder-os) for the operating map and module choice.
+- [startup-metrics-playbook](https://github.com/shubham1502-hue/startup-metrics-playbook) when ICP and funnel metrics need clearer definitions.
+
+This repo produces:
+
+- Account briefs
+- ICP scores
+- Outreach drafts
+- Call prep notes
+- Tracker-ready GTM exports
+
+After:
+
+- [founder-led-sales-call-os](https://github.com/shubham1502-hue/founder-led-sales-call-os) for call learning and deal rescue.
+- [founder-outreach-tracker](https://github.com/shubham1502-hue/founder-outreach-tracker) for founder follow-up cadence.
+- [founder-os-revenue-engine](https://github.com/shubham1502-hue/founder-os-revenue-engine) for revenue leakage diagnosis.
+
 ## Where this fits in the Founder OS
 
 `ai-gtm-command-center` sits before `founder-led-sales-call-os`. Use it for pre-call research and outreach. Use `founder-led-sales-call-os` after calls. Connect both to `founder-outreach-tracker` and `founder-os-revenue-engine` for follow-up and revenue diagnosis.
