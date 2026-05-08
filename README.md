@@ -147,6 +147,8 @@ After:
 
 `ai-gtm-command-center` sits before `founder-led-sales-call-os`. Use it for pre-call research and outreach. Use `founder-led-sales-call-os` after calls. Connect both to `founder-outreach-tracker` and `founder-os-revenue-engine` for follow-up and revenue diagnosis.
 
+If repeated account research or call prep reveals product gaps, competitor objections, or missing proof points, use [Founder Product Feedback Roadmap OS](https://github.com/shubham1502-hue/founder-product-feedback-roadmap-os) to decide whether the signal should become roadmap work, validation, sales narrative, support/documentation, or rejection.
+
 ## Why this matters
 
 This is not an outreach spam generator. It is a founder-controlled GTM workflow for preparing better conversations and tracking the next action.
