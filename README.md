@@ -4,6 +4,38 @@ Pre-call GTM command center for founder-led account research, ICP scoring, outre
 
 <!-- FOUNDER_OS_STANDARD_README -->
 
+## Output preview
+
+The included demo output shows:
+
+- `docs/demo_output/gtm_brief.md`: founder-ready account research and call prep
+- `docs/demo_output/draft_queue.csv`: email drafts for human review
+- `docs/demo_output/linkedin_dm_queue.csv`: LinkedIn DM queue
+- `docs/demo_output/founder_outreach_tracker_import.csv`: tracker-ready export
+- `docs/demo_output/gtm_report.html`: reviewable GTM report
+- `docs/demo_output/recommendations.json`: structured account recommendations
+
+## 7-day Founder's Office sprint
+
+- Day 1: Clean the target account list and define ICP assumptions
+- Day 2: Run the offline account scoring workflow
+- Day 3: Review account briefs and remove low-fit accounts
+- Day 4: Rewrite outreach drafts in the founder's voice
+- Day 5: Move approved follow-ups into CRM or outreach tracker
+- Day 6: Compare replies, objections, and account quality
+- Day 7: Update ICP rules and roll learnings into the weekly GTM review
+
+## Founder's Office signal
+
+This repo demonstrates:
+
+- account research under incomplete information
+- ICP scoring and prioritization
+- founder-facing call prep
+- outbound workflow design
+- human approval before outreach
+- tracker-ready GTM operations
+
 ## The founder problem
 
 Founders often run outbound from browser tabs, CRM notes, LinkedIn profiles, and half-written drafts. They do not need more activity. They need a repeatable workflow that turns account context into clear research, call prep, and human-approved outreach.
