@@ -2,8 +2,10 @@
   {
     "company": "ContextLayer AI",
     "website": "https://example.com",
+    "segment": "AI SaaS",
     "target_person": "Aarav Mehta",
     "target_role": "Founder",
+    "email": "aarav@example.com",
     "linkedin_url": "https://linkedin.com/in/example-aarav",
     "industry": "Customer Support AI",
     "funding_stage": "Seed",
@@ -31,8 +33,10 @@
   {
     "company": "EvalForge",
     "website": "https://example.org",
+    "segment": "AI DevTools",
     "target_person": "Nisha Rao",
     "target_role": "CEO",
+    "email": "nisha@example.org",
     "linkedin_url": "https://linkedin.com/in/example-nisha",
     "industry": "LLM Evaluation",
     "funding_stage": "Seed",
@@ -60,8 +64,10 @@
   {
     "company": "AgentOps Desk",
     "website": "https://example.net",
+    "segment": "AI Agent Platform",
     "target_person": "Kabir Shah",
     "target_role": "Co-founder",
+    "email": "kabir@example.net",
     "linkedin_url": "https://linkedin.com/in/example-kabir",
     "industry": "AI Agent Infrastructure",
     "funding_stage": "Series A",
@@ -89,8 +95,10 @@
   {
     "company": "VoicePilot AI",
     "website": "https://example.edu",
+    "segment": "AI Sales Assistant",
     "target_person": "Isha Menon",
     "target_role": "Founder",
+    "email": "isha@example.edu",
     "linkedin_url": "https://linkedin.com/in/example-isha",
     "industry": "Voice AI",
     "funding_stage": "Pre-seed",

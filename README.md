@@ -11,6 +11,7 @@ The included demo output shows:
 - `docs/demo_output/gtm_brief.md`: founder-ready account research and call prep
 - `docs/demo_output/draft_queue.csv`: email drafts for human review
 - `docs/demo_output/linkedin_dm_queue.csv`: LinkedIn DM queue
+- `docs/demo_output/crm_import.csv`: CRM-ready account and contact import
 - `docs/demo_output/founder_outreach_tracker_import.csv`: tracker-ready export
 - `docs/demo_output/gtm_report.html`: reviewable GTM report
 - `docs/demo_output/recommendations.json`: structured account recommendations
@@ -54,6 +55,7 @@ Founders often run outbound from browser tabs, CRM notes, LinkedIn profiles, and
 - GTM brief
 - draft outreach queue
 - LinkedIn DM queue
+- CRM import CSV
 - founder outreach tracker import
 - HTML report and JSON recommendations
 
@@ -118,9 +120,31 @@ The default sample data and examples are synthetic, anonymized, or template-only
 - `docs/demo_output/gtm_brief.md`: founder call-prep brief
 - `docs/demo_output/draft_queue.csv`: outbound drafts for review
 - `docs/demo_output/linkedin_dm_queue.csv`: LinkedIn DM drafts
+- `docs/demo_output/crm_import.csv`: CRM-ready account/contact import
 - `docs/demo_output/founder_outreach_tracker_import.csv`: tracker import file
 - `docs/demo_output/gtm_report.html`: reviewable report
 - `docs/demo_output/recommendations.json`: structured recommendations
+
+## CRM import mapping
+
+`crm_import.csv` is designed as a neutral import file for common CRMs. Review and assign the `owner` column before importing.
+
+| CRM import column | Suggested destination |
+| --- | --- |
+| `company` | HubSpot Company name, Pipedrive Organization, Attio Company name |
+| `contact` | HubSpot Contact name, Pipedrive Person, Attio Person name |
+| `email` | Contact email |
+| `role` | Job title or role |
+| `website` | Company website/domain |
+| `linkedin_url` | LinkedIn URL custom field |
+| `segment` | Segment, lifecycle segment, or ICP segment custom field |
+| `industry` | Industry |
+| `funding_stage` | Funding stage custom field |
+| `score` | Lead score, fit score, or custom numeric field |
+| `priority` | Priority, status, or custom select field |
+| `next_action` | Task notes, activity note, or next step |
+| `owner` | Record owner; fill this in before import |
+| `notes` | Contact/company notes |
 
 ## Example founder workflow
 
@@ -408,6 +432,7 @@ Then open:
 - `outputs/demo/gtm_brief.md`
 - `outputs/demo/draft_queue.csv`
 - `outputs/demo/linkedin_dm_queue.csv`
+- `outputs/demo/crm_import.csv`
 - `outputs/demo/founder_outreach_tracker_import.csv`
 
 ## Manual LinkedIn Founder DM Workflow

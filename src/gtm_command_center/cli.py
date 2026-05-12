@@ -87,6 +87,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Processed {len(recommendations)} accounts.")
     print(f"Draft queue: {out_dir / 'draft_queue.csv'}")
     print(f"LinkedIn DM queue: {out_dir / 'linkedin_dm_queue.csv'}")
+    print(f"CRM import: {out_dir / 'crm_import.csv'}")
     print(f"Tracker import: {out_dir / 'founder_outreach_tracker_import.csv'}")
     print(f"Brief: {out_dir / 'gtm_brief.md'}")
     print(f"HTML report: {out_dir / 'gtm_report.html'}")
