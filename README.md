@@ -85,6 +85,7 @@ After:
 ## Quick start
 
 - Run `python -m pip install -e .`.
+- Copy `templates/target_accounts_template.csv` to your own private target list.
 - Run `python -m gtm_command_center run --targets examples/target_accounts.csv --persona examples/persona.md --out docs/demo_output --offline`.
 - Open `docs/demo_output/gtm_brief.md` first.
 - Review `docs/demo_output/draft_queue.csv` before sending anything.
@@ -93,7 +94,7 @@ After:
 
 1. Click Fork.
 2. Rename the repo if needed.
-3. Replace `examples/target_accounts.csv` with your own accounts.
+3. Copy `templates/target_accounts_template.csv` and replace the example rows with your own accounts.
 4. Keep optional API keys in `.env`, never in committed files.
 5. Run the demo path first before connecting Gemini, Groq, or Google Sheets.
 6. Move approved outputs into HubSpot, Pipedrive, Attio, Airtable, Google Sheets, or your outreach tracker.
@@ -112,6 +113,25 @@ After:
 - founder-approved ICP and messaging assumptions
 
 The default sample data and examples are synthetic, anonymized, or template-only unless the repo explicitly documents a public source. Keep private customer, prospect, employee, investor, borrower, merchant, payment, or company data out of public forks.
+
+## Target account template
+
+Use `templates/target_accounts_template.csv` when forking the repo. Keep `company` and `website` filled because they are required by the loader. The remaining columns improve scoring, personalization, and manual review quality.
+
+| Column | How to fill it |
+| --- | --- |
+| `company` | Account name. Required. |
+| `website` | Public company URL. Required. |
+| `segment` | ICP segment such as B2B SaaS, AI DevTools, Marketplace, or Enterprise Services. |
+| `industry` | More specific category used for context and offer angle. |
+| `funding_stage` | Pre-seed, Seed, Series A, Series B, Bootstrapped, or Unknown. |
+| `target_person` | Founder, operator, buyer, or champion name. |
+| `target_role` | Role such as Founder, CEO, RevOps Lead, VP Sales, or Head of Support. |
+| `linkedin_url` | Public LinkedIn profile or company page to review manually. |
+| `email` | Optional contact email if you already have permission to use it. |
+| `notes` | Why this account is relevant and what pain hypothesis to validate. |
+| `linkedin_notes` | Recent public post, hiring signal, or manual LinkedIn research note. |
+| `industry_notes` | Market timing, compliance context, buyer pressure, or category insight. |
 
 ## Output files
 
