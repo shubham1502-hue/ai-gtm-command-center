@@ -15,8 +15,10 @@ class SheetsTests(unittest.TestCase):
         recommendation = GTMRecommendation(
             company="ContextLayer AI",
             website="https://example.com",
+            segment="B2B SaaS",
             target_person="Aarav Mehta",
             target_role="Founder",
+            email="aarav@example.com",
             linkedin_url="https://linkedin.com/in/example",
             industry="AI SaaS",
             funding_stage="Seed",
@@ -45,7 +47,7 @@ class SheetsTests(unittest.TestCase):
 
         self.assertEqual(values[0], DRAFT_QUEUE_FIELDNAMES)
         self.assertEqual(values[1][0], "ContextLayer AI")
-        self.assertEqual(values[1][7], 96)
+        self.assertEqual(values[1][9], 96)
 
 
 if __name__ == "__main__":

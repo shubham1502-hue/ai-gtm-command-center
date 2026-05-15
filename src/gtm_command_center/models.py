@@ -65,8 +65,10 @@ class AccountResearch:
 class GTMRecommendation:
     company: str
     website: str
+    segment: str
     target_person: str
     target_role: str
+    email: str
     linkedin_url: str
     industry: str
     funding_stage: str
@@ -96,8 +98,10 @@ class GTMRecommendation:
         return {
             "company": self.company,
             "website": self.website,
+            "segment": self.segment,
             "target_person": self.target_person,
             "target_role": self.target_role,
+            "email": self.email,
             "linkedin_url": self.linkedin_url,
             "industry": self.industry,
             "funding_stage": self.funding_stage,

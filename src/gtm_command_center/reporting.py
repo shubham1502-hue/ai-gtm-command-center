@@ -12,8 +12,10 @@ from .utils import ensure_dir
 DRAFT_QUEUE_FIELDNAMES = [
     "company",
     "website",
+    "segment",
     "target_person",
     "target_role",
+    "email",
     "linkedin_url",
     "industry",
     "funding_stage",
@@ -44,6 +46,7 @@ def write_outputs(recommendations: list[GTMRecommendation], out_dir: Path) -> No
     ensure_dir(out_dir)
     write_draft_queue(recommendations, out_dir / "draft_queue.csv")
     write_linkedin_dm_queue(recommendations, out_dir / "linkedin_dm_queue.csv")
+    write_crm_import(recommendations, out_dir / "crm_import.csv")
     write_tracker_import(recommendations, out_dir / "founder_outreach_tracker_import.csv")
     write_brief(recommendations, out_dir / "gtm_brief.md")
     write_html_report(recommendations, out_dir / "gtm_report.html")
@@ -52,7 +55,7 @@ def write_outputs(recommendations: list[GTMRecommendation], out_dir: Path) -> No
 
 def write_draft_queue(recommendations: list[GTMRecommendation], path: Path) -> None:
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=DRAFT_QUEUE_FIELDNAMES)
+        writer = csv.DictWriter(handle, fieldnames=DRAFT_QUEUE_FIELDNAMES, lineterminator="\n")
         writer.writeheader()
         for recommendation in recommendations:
             writer.writerow(recommendation.as_flat_row())
@@ -65,6 +68,7 @@ def write_linkedin_dm_queue(recommendations: list[GTMRecommendation], path: Path
         "target_person",
         "target_role",
         "company",
+        "segment",
         "industry",
         "funding_stage",
         "linkedin_url",
@@ -78,11 +82,53 @@ def write_linkedin_dm_queue(recommendations: list[GTMRecommendation], path: Path
         "sources",
     ]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for item in recommendations:
             row = item.as_flat_row()
             writer.writerow({field: row.get(field, "") for field in fieldnames})
+
+
+def write_crm_import(recommendations: list[GTMRecommendation], path: Path) -> None:
+    fieldnames = [
+        "company",
+        "contact",
+        "email",
+        "role",
+        "website",
+        "linkedin_url",
+        "segment",
+        "industry",
+        "funding_stage",
+        "score",
+        "priority",
+        "next_action",
+        "owner",
+        "notes",
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        for item in recommendations:
+            writer.writerow(
+                {
+                    "company": item.company,
+                    "contact": item.target_person,
+                    "email": item.email,
+                    "role": item.target_role,
+                    "website": item.website,
+                    "linkedin_url": item.linkedin_url,
+                    "segment": item.segment,
+                    "industry": item.industry,
+                    "funding_stage": item.funding_stage,
+                    "score": item.fit_score,
+                    "priority": item.priority,
+                    "next_action": item.approach_strategy
+                    or "Review account, validate source notes, and assign the next outreach step.",
+                    "owner": "",
+                    "notes": item.score_rationale,
+                }
+            )
 
 
 def write_tracker_import(recommendations: list[GTMRecommendation], path: Path) -> None:
@@ -104,7 +150,7 @@ def write_tracker_import(recommendations: list[GTMRecommendation], path: Path) -
         "Next Action",
     ]
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for index, item in enumerate(recommendations, start=1):
             writer.writerow(

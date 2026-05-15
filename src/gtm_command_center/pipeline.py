@@ -52,8 +52,10 @@ def normalize_recommendation(research: AccountResearch, raw: dict) -> GTMRecomme
     return GTMRecommendation(
         company=account.company,
         website=account.website,
+        segment=account.segment,
         target_person=account.target_person,
         target_role=account.target_role,
+        email=account.email,
         linkedin_url=account.linkedin_url,
         industry=account.industry,
         funding_stage=account.funding_stage,

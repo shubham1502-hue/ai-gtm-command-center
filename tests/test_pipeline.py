@@ -1,4 +1,5 @@
 from pathlib import Path
+import csv
 import sys
 import tempfile
 import unittest
@@ -9,6 +10,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from gtm_command_center.llm import MockProvider, extract_json_object
 from gtm_command_center.models import TargetAccount
 from gtm_command_center.pipeline import load_targets, recommend_accounts
+from gtm_command_center.reporting import write_outputs
 
 
 class PipelineTests(unittest.TestCase):
@@ -50,6 +52,44 @@ class PipelineTests(unittest.TestCase):
         self.assertIn("Open the LinkedIn profile manually", recommendations[0].approach_strategy)
         self.assertLessEqual(len(recommendations[0].linkedin_connection_note), 200)
         self.assertIn("thanks for connecting", recommendations[0].linkedin_dm_body.lower())
+        self.assertEqual(recommendations[0].segment, "B2B SaaS")
+
+    def test_write_outputs_includes_crm_import(self) -> None:
+        accounts = [
+            TargetAccount(
+                company="Acme",
+                website="https://example.com",
+                segment="B2B SaaS",
+                industry="Revenue Operations",
+                funding_stage="Seed",
+                target_person="Asha Rao",
+                target_role="Founder",
+                email="asha@example.com",
+                linkedin_url="https://linkedin.com/in/example",
+                notes="Seed founder-led revenue pipeline with manual follow-up.",
+            )
+        ]
+        recommendations = recommend_accounts(
+            accounts,
+            provider=MockProvider(),
+            sender_persona="AI founder office operator",
+            offline=True,
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out_dir = Path(tmp)
+            write_outputs(recommendations, out_dir)
+            with (out_dir / "crm_import.csv").open("r", encoding="utf-8", newline="") as handle:
+                rows = list(csv.DictReader(handle))
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["company"], "Acme")
+        self.assertEqual(rows[0]["contact"], "Asha Rao")
+        self.assertEqual(rows[0]["email"], "asha@example.com")
+        self.assertEqual(rows[0]["segment"], "B2B SaaS")
+        self.assertEqual(rows[0]["score"], str(recommendations[0].fit_score))
+        self.assertIn("Open the LinkedIn profile manually", rows[0]["next_action"])
+        self.assertIn("owner", rows[0])
 
 
 if __name__ == "__main__":
