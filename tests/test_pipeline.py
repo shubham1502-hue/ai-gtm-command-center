@@ -25,6 +25,13 @@ class PipelineTests(unittest.TestCase):
             accounts = load_targets(path)
         self.assertEqual(accounts[0].company, "Acme")
 
+    def test_load_targets_error_names_missing_company_column(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "targets.csv"
+            path.write_text("website\nhttps://example.com\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "company"):
+                load_targets(path)
+
     def test_mock_provider_generates_ranked_recommendation(self) -> None:
         accounts = [
             TargetAccount(
